@@ -1,6 +1,10 @@
-c:\Users\gionn\wa\JAVA\maven-intro\src\main\java\it\aulab\models\Leg.java
-c:\Users\gionn\wa\JAVA\maven-intro\src\main\java\it\aulab\models\Arm.java
-c:\Users\gionn\wa\JAVA\maven-intro\src\main\java\it\aulab\App.java
-c:\Users\gionn\wa\JAVA\maven-intro\src\main\java\it\aulab\AppConfig.java
-c:\Users\gionn\wa\JAVA\maven-intro\src\main\java\it\aulab\Side.java
-c:\Users\gionn\wa\JAVA\maven-intro\src\main\java\it\aulab\models\Jeeg.java
+C:\Users\gionn\wa\JAVA\maven-intro\src\main\java\it\aulab\models\Leg.java
+C:\Users\gionn\wa\JAVA\maven-intro\src\main\java\it\aulab\repositories\JeegRepositoryImpl.java
+C:\Users\gionn\wa\JAVA\maven-intro\src\main\java\it\aulab\models\Arm.java
+C:\Users\gionn\wa\JAVA\maven-intro\src\main\java\it\aulab\repositories\JeegRepository.java
+C:\Users\gionn\wa\JAVA\maven-intro\src\main\java\it\aulab\App.java
+C:\Users\gionn\wa\JAVA\maven-intro\src\main\java\it\aulab\AppConfig.java
+C:\Users\gionn\wa\JAVA\maven-intro\src\main\java\it\aulab\services\JeegServiceImpl.java
+C:\Users\gionn\wa\JAVA\maven-intro\src\main\java\it\aulab\services\JeegService.java
+C:\Users\gionn\wa\JAVA\maven-intro\src\main\java\it\aulab\Side.java
+C:\Users\gionn\wa\JAVA\maven-intro\src\main\java\it\aulab\models\Jeeg.java

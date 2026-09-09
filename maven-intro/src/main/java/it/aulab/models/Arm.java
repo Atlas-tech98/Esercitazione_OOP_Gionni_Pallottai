@@ -22,4 +22,9 @@ public class Arm {
         System.out.println("Attacco con il braccio " + side);
     }
 
+
+    public void defend(Side side) {
+        System.out.println("mi difendo con il braccio " + side);
+    }
+
 }
