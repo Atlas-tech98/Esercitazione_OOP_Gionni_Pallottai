@@ -2,6 +2,8 @@ package it.aulab.progetto_blog.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,6 +15,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "authors")
+// @JsonIgnoreProperties({"id"})
+@JsonPropertyOrder({"id", "firstname", "lastname", "email", "posts"})
 public class Author {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +43,7 @@ public class Author {
 
     @OneToMany (mappedBy = "author") // specifica che la relazione è bidirezionale e che il campo "author" nella classe "Post"
     //  è il proprietario della relazione
+    @JsonIgnoreProperties({"author"})
     private List<Post> posts = new ArrayList<Post>();
 
     public Author() {

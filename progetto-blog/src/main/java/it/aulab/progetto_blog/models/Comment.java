@@ -1,5 +1,8 @@
 package it.aulab.progetto_blog.models;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +14,7 @@ import jakarta.persistence.Table;
 
 @Entity 
 @Table (name = "comments")
+@JsonPropertyOrder({"id", "email", "body", "date"})
 public class Comment {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +28,7 @@ public class Comment {
 
     @ManyToOne 
     @JoinColumn (name = "post_id", nullable = false) 
+    @JsonIgnoreProperties({"comments"})
     private Post post;   
 
     public Comment() {
