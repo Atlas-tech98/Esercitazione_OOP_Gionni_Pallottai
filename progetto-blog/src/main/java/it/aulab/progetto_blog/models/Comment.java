@@ -27,7 +27,7 @@ public class Comment {
     private String date;
 
     @ManyToOne 
-    @JoinColumn (name = "post_id", nullable = false) 
+    @JoinColumn (name = "post_id", nullable = true) 
     @JsonIgnoreProperties({"comments"})
     private Post post;   
 
@@ -64,6 +64,11 @@ public class Comment {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public void setPost(Object object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setPost'");
     }
 
 }

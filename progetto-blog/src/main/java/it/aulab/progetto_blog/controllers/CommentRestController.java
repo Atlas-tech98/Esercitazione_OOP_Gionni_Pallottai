@@ -13,14 +13,11 @@ import it.aulab.progetto_blog.models.Comment;
 import it.aulab.progetto_blog.repositories.CommentRepository;
 
 @RestController 
-@RequestMapping("/comments")
-public class CommentController {
+@RequestMapping("/api/comments")
+public class CommentRestController {
     
     @Autowired 
     CommentRepository commentRepositroy;
 
-    @RequestMapping(method =RequestMethod.GET)
-    public List<Comment> getAllPost(){
-        return commentRepositroy.findAll();
-    }
+    
 }
