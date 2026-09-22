@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
+
+import it.aulab.progetto_blog.dtos.AuthorDto;
 import it.aulab.progetto_blog.models.Author;
 import it.aulab.progetto_blog.services.AuthorService;
 
@@ -24,24 +26,24 @@ public class AuthorRestController {
 
     // @RequestMapping(method=RequestMethod.GET)
     @GetMapping 
-    public List<Author> getAllAuthors(){
+    public List<AuthorDto> getAllAuthors(){
         return authorService.readAll();
     }
 
     // @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @GetMapping("{id}")
-    public Author getAuthor(@PathVariable("id") Long id){
+    public AuthorDto getAuthor(@PathVariable("id") Long id){
         return authorService.read(id);
     }
 
     @PostMapping
     // PostMapping(consumes = "application/json")
-    public Author createAuthor(@RequestBody Author author){
+    public AuthorDto createAuthor(@RequestBody Author author){
         return authorService.create(author);
     }
 
     @PutMapping("{id}")
-    public Author updateAuthor(@PathVariable("id") Long id, @RequestBody Author author){
+    public AuthorDto updateAuthor(@PathVariable("id") Long id, @RequestBody Author author){
        // author.setId(id);
         return authorService.update(id, author);
     }

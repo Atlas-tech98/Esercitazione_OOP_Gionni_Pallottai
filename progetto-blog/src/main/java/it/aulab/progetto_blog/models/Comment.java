@@ -66,9 +66,11 @@ public class Comment {
         this.date = date;
     }
 
-    public void setPost(Object object) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setPost'");
+    public Post getPost() {
+        return post;
     }
 
+    public void setPost(Post post) {
+        this.post = post;
+    }
 }
