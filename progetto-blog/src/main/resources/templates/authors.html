@@ -15,9 +15,16 @@
             <div class="row">
                 <div class="col-12">
                     <h1 class="text-center">Tutti gli autori</h1>
-                        <a th:href="@{/authors/create}" class="btn btn-primary m-2">
-                            <i class="fa-solid fa-plus"></i>
-                        </a>
+                    <a th:href="@{/authors/create}" class="btn btn-primary m-2">
+                        <i class="fa-solid fa-plus"></i>
+                    </a>
+
+                    <form th:action="@{/logout}" method="post" class="ms-auto">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            logout
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
