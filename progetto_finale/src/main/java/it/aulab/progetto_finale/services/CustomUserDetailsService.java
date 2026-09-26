@@ -1,0 +1,55 @@
+package it.aulab.progetto_finale.services;
+
+import java.util.Collection;
+import java.util.stream.Collectors;
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import it.aulab.progetto_finale.models.Role;
+import it.aulab.progetto_finale.models.User;
+import it.aulab.progetto_finale.repositories.UserRepository;
+
+@Service 
+public class CustomUserDetailsService implements UserDetailsService{
+
+    @Autowired 
+    private UserRepository userRepository;
+
+    @Override 
+    public CustomUserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
+        User user = userRepository.findByEmail(username);
+    if(user == null){
+        System.out.println("UTENTE NON TROVATO");
+        throw new UsernameNotFoundException("Invalid credential");
+    }
+
+    System.out.println("Utente trovato: " + user.getEmail());
+    System.out.println("Password DB: " + user.getPassword());
+
+    return new CustomUserDetails(
+        user.getId(),
+        user.getUsername(),
+        user.getEmail(),
+        user.getPassword(),
+        mapRolesToAuthorities(user.getRoles())
+    );
+}
+
+    private Collection <? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
+        Collection<? extends GrantedAuthority> mapRoles = null;
+        if (roles.size() !=0) {
+            mapRoles = roles.stream()
+            .map(role -> new SimpleGrantedAuthority(role.getName()))
+            .collect(Collectors.toList());
+        } else {
+            mapRoles = Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+        }
+        return mapRoles;
+    }
+}
