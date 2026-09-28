@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.UnsatisfiedDependencyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,7 +33,7 @@ public class CategoryService implements CrudService<CategoryDto, Category, Long>
 
     @Override 
     public CategoryDto read(Long key){
-        throw new UnsupportedOperationException("Unimplmented method 'read'");
+        return modelMapper.map(categoryRepository.findById(key), CategoryDto.class);
     }
 
     @Override 

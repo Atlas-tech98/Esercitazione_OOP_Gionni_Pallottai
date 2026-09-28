@@ -14,4 +14,5 @@ public interface UserService {
                   HttpServletResponse response);
     
     User findByEmail(String email);
+    User find(Long id);
 }
