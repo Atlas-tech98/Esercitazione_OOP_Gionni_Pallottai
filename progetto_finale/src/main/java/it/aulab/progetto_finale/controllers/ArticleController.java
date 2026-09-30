@@ -11,12 +11,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -81,7 +83,7 @@ public class ArticleController {
                                 Model viewModel){
 
         if (result.hasErrors()){
-            viewModel.addAttribute("title", "Creaun articolo");
+            viewModel.addAttribute("title", "Crea un articolo");
             viewModel.addAttribute("article", article);
             viewModel.addAttribute("categories", categoryService.readAll());
             return "/article/create";
@@ -99,6 +101,67 @@ public class ArticleController {
         viewModel.addAttribute("article", articleService.read(id));
         
         return "article/detail";
+    }
+    
+    @GetMapping("/edit/{id}")
+    public String editArticle(@PathVariable("id") Long id, Principal principal,Model viewModel){
+
+        ArticleDto article = articleService.read(id);
+
+        if (!article.getUser().getEmail().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+
+        viewModel.addAttribute("title", "Article update");
+        viewModel.addAttribute("article", articleService.read(id));
+        viewModel.addAttribute("categories", categoryService.readAll());
+        return "article/edit";
+    }
+
+    @PostMapping("/update/{id}")
+    public String articleUpdate(@PathVariable("id") Long id, 
+                                @Valid @ModelAttribute("article") Article article,
+                                BindingResult result,
+                                RedirectAttributes redirectAttributes,
+                                MultipartFile file, 
+                                Model viewModel,
+                                Principal principal) {
+
+        ArticleDto existingArticle = articleService.read(id);
+
+        if (!existingArticle.getUser().getEmail().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+        if (result.hasErrors()) {
+
+            viewModel.addAttribute("title", "Article update");
+            article.setImage(articleService.read(id).getImage());
+            viewModel.addAttribute("article", article);
+            viewModel.addAttribute("categories", categoryService.readAll());
+            return "article/edit";
+        }
+
+        articleService.update(id, article, file);
+        redirectAttributes.addFlashAttribute("successMessage", "Articolo modificato con successo!");
+    
+        return "redirect:/articles";
+    }
+    
+    @GetMapping("/delete/{id}")
+    public String articleDelete(@PathVariable("id") Long id, 
+                                RedirectAttributes redirectAttributes,
+                                Principal principal) {
+
+    ArticleDto article = articleService.read(id);
+
+    if (!article.getUser().getEmail().equals(principal.getName())) {
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+    }
+
+        articleService.delete(id);
+        redirectAttributes.addFlashAttribute("successMessage", "Articolo eliminato con successo!");
+
+        return "redirect:/writer/dashboard";
     }
 
     @GetMapping("revisor/detail/{id}")

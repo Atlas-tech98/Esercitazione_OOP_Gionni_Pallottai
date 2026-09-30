@@ -68,6 +68,15 @@ public class CareerRequestServiceImpl implements CareerRequestService {
         emailService.sendSimpleEmail(user.getEmail(), "Ruolo abilitato", "Ciao, la tua richiest è stata accettata dalla nostra amministrazione");
     }
 
+    @Override
+    public void careerReject(Long requestId) {
+
+        CareerRequest request = careerRequestRepository.findById(requestId).get();
+        request.setIsChecked(true);
+        careerRequestRepository.save(request);
+        emailService.sendSimpleEmail(request.getUser().getEmail(),"Richiesta non accettata","Ciao, la tua richiesta di collaborazione non è stata accettata dalla nostra amministrazione");
+    }
+
     @Override 
     public CareerRequest find(Long id){
         return careerRequestRepository.findById(id).get();

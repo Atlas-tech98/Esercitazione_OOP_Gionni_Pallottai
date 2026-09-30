@@ -30,8 +30,9 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests((authorize) -> authorize.requestMatchers("/register/**").permitAll()
             .requestMatchers("/admin/dashboard", "/categories", "/categories/create", "/categories/edit/{id}", "/categories/update/{id}", "/categories/delete/{id}").hasRole("ADMIN")
-            .requestMatchers("/revisor/dashboard", "/revisor/detail/{id}", "/accept").hasRole("REVISOR")
-            .requestMatchers("/register", "/", "/articles", "/image/**", "/articles/detail/**", "/categories/serach/{id}", "/search/{id}", "/articles/search").permitAll()
+            .requestMatchers("/revisor/dashboard", "/articles/revisor/detail/{id}", "/articles/accept").hasRole("REVISOR")
+            .requestMatchers("/writer/dashboard", "/articles/create", "/articles/edit/{id}", "/articles/update/{id}", "/articles/delete/{id}").hasRole("WRITER")
+            .requestMatchers("/register", "/", "/articles", "/image/**", "/articles/detail/**", "/categories/search/{id}", "/search/{id}", "/articles/search").permitAll()
             .anyRequest().authenticated()
         ).formLogin(form ->
             form.loginPage("/login")
